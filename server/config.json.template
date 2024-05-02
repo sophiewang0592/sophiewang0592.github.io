@@ -1,0 +1,9 @@
+{
+  "rds_host": "PLACEHOLDER_HOST",
+  "rds_port": "PLACEHOLDER_PORT",
+  "rds_user": "PLACEHOLDER_USER",
+  "rds_password": "PLACEHOLDER_PASSWORD",
+  "rds_db": "PLACEHOLDER_DB",
+  "server_host": "PLACEHOLDER_SERVER_HOST",
+  "server_port": "PLACEHOLDER_SERVER_PORT"
+}
