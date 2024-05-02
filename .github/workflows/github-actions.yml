@@ -21,7 +21,7 @@ jobs:
             | .rds_password = "${{ secrets.RDS_PASSWORD }}" 
             | .rds_db = "${{ secrets.RDS_DB }}" 
             | .server_host = "${{ secrets.SERVER_HOST }}" 
-            | .server_port = "${{ secrets.SERVER_PORT }}"' config.json.template > server/config.json
+            | .server_port = "${{ secrets.SERVER_PORT }}"' server/config.json.template > server/config.json
         env:
           RDS_HOST: ${{ secrets.RDS_HOST }}
           RDS_PORT: ${{ secrets.RDS_PORT }}
