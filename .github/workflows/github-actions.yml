@@ -44,4 +44,10 @@ jobs:
           npm install @mui/lab
           npm install axios
           npm install use-immer
-          npm run
+          npm run build
+
+       - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages  # The branch the action should deploy to.
+          folder: client/build  # The folder the action should deploy.
