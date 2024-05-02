@@ -1,0 +1,47 @@
+name: Deploy Application
+
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Create config file in server directory
+        run: |
+          mkdir -p server
+          jq '.rds_host = "${{ secrets.RDS_HOST }}" 
+            | .rds_port = "${{ secrets.RDS_PORT }}" 
+            | .rds_user = "${{ secrets.RDS_USER }}" 
+            | .rds_password = "${{ secrets.RDS_PASSWORD }}" 
+            | .rds_db = "${{ secrets.RDS_DB }}" 
+            | .server_host = "${{ secrets.SERVER_HOST }}" 
+            | .server_port = "${{ secrets.SERVER_PORT }}"' config.json.template > server/config.json
+        env:
+          RDS_HOST: ${{ secrets.RDS_HOST }}
+          RDS_PORT: ${{ secrets.RDS_PORT }}
+          RDS_USER: ${{ secrets.RDS_USER }}
+          RDS_PASSWORD: ${{ secrets.RDS_PASSWORD }}
+          RDS_DB: ${{ secrets.RDS_DB }}
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+          SERVER_PORT: ${{ secrets.SERVER_PORT }}
+
+      - name: Install backend dependencies
+        run: |
+          cd server
+          npm install
+          npm run
+
+      - name: Install frontend dependencies
+        run: |
+          cd client
+          npm install
+          npm install @mui/lab
+          npm install axios
+          npm install use-immer
+          npm run
